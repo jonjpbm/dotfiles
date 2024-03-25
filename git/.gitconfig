@@ -1,0 +1,25 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Jon Duarte
+	email = jon.duarte@mezmo.com
+[core]
+	editor = nvim
+	pager = less -LR --mouse
+
+# https://github.com/dandavison/delta/issues/630
+[pager]
+	diff = LESS='LR --mouse' delta
+	show = LESS='LR --mouse' delta
+	stash = LESS='LR --mouse' delta
+	log = LESS='LRc --mouse' delta
+	reflog = LESS='LR --mouse' delta
+
+# https://dandavison.github.io/delta/configuration.html
+[delta]
+	features = decorations
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
