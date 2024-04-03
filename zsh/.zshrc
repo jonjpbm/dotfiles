@@ -29,10 +29,14 @@ export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
 export FZF_DEFAULT_OPTS='--height 40%'
 
 #Mcfly
+# https://github.com/cantino/mcfly
 export MCFLY_KEY_SCHEME=vim
-export MCFLY_FUZZY=1
-export MCFLY_RESULTS=20
-export MCFLY_RESULTS_SORT=LAST_RUN
+export MCFLY_FUZZY=4
+export MCFLY_RESULTS=50
+#Default is rank
+#export MCFLY_RESULTS_SORT=LAST_RUN
+#export MCFLY_DISABLE_MENU=TRUE
+export MCFLY_INTERFACE_VIEW=BOTTOM
 
 # Options to fzf command
 # export FZF_COMPLETION_OPTS='--border --info=inline'
