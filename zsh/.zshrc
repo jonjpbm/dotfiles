@@ -77,6 +77,9 @@ for file in ~/.*.zsh; do
     source $file
 done
 
+#ghcli completions
+fpath=(${ZDOTDIR:-$HOME}/completions $fpath)
+
 # https://asdf-vm.com/guide/getting-started.html
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
@@ -102,6 +105,9 @@ bindkey -v '^?' backward-delete-char
 
 # https://github.com/cantino/mcfly
 eval "$(mcfly init zsh)"
+
+
+eval "$(gh copilot alias -- zsh)"
 
 # https://github.com/ajeetdsouza/zoxide#environment-variables
 _ZO_ECHO=1
