@@ -20,23 +20,14 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 #---- TFENV ----#
 export TFENV_ARCH=amd64
 
-#---- asdf ----#
-export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
-
 # fzf
 #https://github.com/junegunn/fzf?tab=readme-ov-file#installation
 #export FZF_COMPLETION_TRIGGER=''
 export FZF_DEFAULT_OPTS='--height 40%'
 
-#Mcfly
-# https://github.com/cantino/mcfly
-export MCFLY_KEY_SCHEME=vim
-export MCFLY_FUZZY=4
-export MCFLY_RESULTS=50
-#Default is rank
-#export MCFLY_RESULTS_SORT=LAST_RUN
-#export MCFLY_DISABLE_MENU=TRUE
-export MCFLY_INTERFACE_VIEW=BOTTOM
+#---- asdf ----#
+export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
+
 
 # Options to fzf command
 # export FZF_COMPLETION_OPTS='--border --info=inline'
@@ -107,9 +98,12 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# https://github.com/cantino/mcfly
-eval "$(mcfly init zsh)"
+# https://github.com/atuinsh/atuin?tab=readme-ov-file#shell-plugin
+#eval "$(atuin init zsh)"
 
+# https://docs.atuin.sh/configuration/key-binding/
+# Bind ctrl-r but not up arrow
+eval "$(atuin init zsh --disable-up-arrow)"
 
 eval "$(gh copilot alias -- zsh)"
 
@@ -120,6 +114,9 @@ eval "$(zoxide init zsh)"
 
 #starship
 eval "$(starship init zsh)"
+
+# https://developer.1password.com/docs/cli/reference/commands/completion/#load-shell-completion-information-for-zsh
+eval "$(op completion zsh)"; compdef _op op
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -143,8 +140,13 @@ source <(kubectl completion zsh)
 # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# forgit https://github.com/wfxr/forgit?tab=readme-ov-file#homebrew
+[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # AWSCLI
 complete -C '/usr/local/bin/aws_completer' aws
+
+source /Users/jon.duarte/.config/broot/launcher/bash/br
