@@ -37,7 +37,7 @@ alias krun='kubectl run --rm --restart=Never --image-pull-policy=IfNotPresent -i
 alias ksysrun='kubectl --namespace=kube-system run --rm --restart=Never --image-pull-policy=IfNotPresent -i -t'
 alias kgp='kubectl get pods'
 alias ksysgpo='kubectl --namespace=kube-system get pods'
-alias kdpo='kubectl describe pods'
+alias kdp='kubectl describe pods'
 alias ksysdpo='kubectl --namespace=kube-system describe pods'
 alias krmpo='kubectl delete pods'
 alias ksysrmpo='kubectl --namespace=kube-system delete pods'

@@ -3,6 +3,7 @@ EDITOR=nvim
 
 # vi mode
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 
 # for go bineries
 export PATH=$PATH:$(go env GOPATH)/bin
@@ -14,16 +15,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-#brew install of curl
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-
-#---- TFENV ----#
-export TFENV_ARCH=amd64
-
 # fzf
 #https://github.com/junegunn/fzf?tab=readme-ov-file#installation
 #export FZF_COMPLETION_TRIGGER=''
-export FZF_DEFAULT_OPTS='--height 40%'
+#export FZF_DEFAULT_OPTS='--height 40%'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse' 
 
 #---- asdf ----#
 export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
@@ -60,6 +56,8 @@ PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 #brew install grep
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
+#brew install of curl
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jon.duarte/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jon.duarte/google-cloud-sdk/path.zsh.inc'; fi
@@ -81,6 +79,27 @@ fpath=(${ASDF_DIR}/completions $fpath)
 
 . "$HOME/.asdf/asdf.sh"
 
+# history setup
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000000000
+HISTSIZE=1000000000
+#setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+#setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+#setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+# completion using arrow keys (based on history)
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
 # initialise completions with ZSH's compinit
 autoload -U +X bashcompinit && bashcompinit
 autoload -U compinit
@@ -98,26 +117,6 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# https://github.com/atuinsh/atuin?tab=readme-ov-file#shell-plugin
-#eval "$(atuin init zsh)"
-
-# https://docs.atuin.sh/configuration/key-binding/
-# Bind ctrl-r but not up arrow
-eval "$(atuin init zsh --disable-up-arrow)"
-
-eval "$(gh copilot alias -- zsh)"
-
-# https://github.com/ajeetdsouza/zoxide#environment-variables
-_ZO_ECHO=1
-# https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
-
-#starship
-eval "$(starship init zsh)"
-
-# https://developer.1password.com/docs/cli/reference/commands/completion/#load-shell-completion-information-for-zsh
-eval "$(op completion zsh)"; compdef _op op
-
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] ||
@@ -132,21 +131,39 @@ function zle-keymap-select {
 }
 zle -N zle-keymap-select
 
+# https://github.com/ajeetdsouza/zoxide#environment-variables
+_ZO_ECHO=1
+
+#----------------- evals ---------------------#
+eval "$(gh copilot alias -- zsh)"
+
+# https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init zsh)"
+
+#starship
+eval "$(starship init zsh)"
+
+# https://developer.1password.com/docs/cli/reference/commands/completion/#load-shell-completion-information-for-zsh
+eval "$(op completion zsh)"; compdef _op op
+
+# https://direnv.net/docs/hook.html
+eval "$(direnv hook zsh)"
+
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Load ; should be last.
 #https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion
 # NOTE: This needed to go after the autoload compinit for some reason
 source <(kubectl completion zsh)
 
-# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# forgit https://github.com/wfxr/forgit?tab=readme-ov-file#homebrew
-[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#----------------- fzf -----------------------#
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 # AWSCLI
 complete -C '/usr/local/bin/aws_completer' aws
 
 source /Users/jon.duarte/.config/broot/launcher/bash/br
+
+complete -o nospace -C /Users/jon.duarte/.asdf/installs/terramate/0.5.3/bin/terramate terramate

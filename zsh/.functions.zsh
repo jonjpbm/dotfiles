@@ -1,3 +1,11 @@
+function mzclone {
+    if [ $# -ne 1 ]; then
+        echo "Usage: $0 <repo_name>"
+        exit 1
+    fi
+    git clone git@github.com:answerbook/"${$1}".git ~/repo/
+}
+
 function tib_to_tb {
     local TiB=$1
     local TB=$(echo "scale=12; $TiB * 1024^4 / 1000^4" | bc)
