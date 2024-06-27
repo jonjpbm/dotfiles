@@ -62,10 +62,10 @@ PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/jon.duarte/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jon.duarte/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "/Users/${USER}/google-cloud-sdk/path.zsh.inc" ]; then . "/Users/${USER}/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/jon.duarte/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jon.duarte/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "/Users/${USER}/google-cloud-sdk/completion.zsh.inc" ]; then . "/Users/${USER}/google-cloud-sdk/completion.zsh.inc"; fi
 
 # To source in aliases and functions
 for file in ~/.*.zsh; do
@@ -137,7 +137,8 @@ zle -N zle-keymap-select
 _ZO_ECHO=1
 
 #----------------- evals ---------------------#
-eval "$(gh copilot alias -- zsh)"
+#https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-github-copilot-in-the-cli
+# eval "$(gh copilot alias -- zsh)"
 
 # https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init --cmd cd zsh)"
@@ -171,4 +172,4 @@ eval "$(fzf --zsh)"
 # AWSCLI
 complete -C '/usr/local/bin/aws_completer' aws
 
-complete -o nospace -C /Users/jon.duarte/.asdf/installs/terramate/0.5.3/bin/terramate terramate
+complete -o nospace -C /Users/${USER}/.asdf/installs/terramate/0.5.3/bin/terramate terramate
