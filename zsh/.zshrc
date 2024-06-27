@@ -21,6 +21,8 @@ export NVM_DIR="$HOME/.nvm"
 #export FZF_DEFAULT_OPTS='--height 40%'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse' 
 
+export _ZO_FZF_OPTS="--no-sort --keep-right --height=50% --info=inline --layout=reverse --exit-0 --select-1"
+
 #---- asdf ----#
 export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
 
@@ -138,7 +140,7 @@ _ZO_ECHO=1
 eval "$(gh copilot alias -- zsh)"
 
 # https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 #starship
 eval "$(starship init zsh)"
@@ -157,13 +159,16 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # NOTE: This needed to go after the autoload compinit for some reason
 source <(kubectl completion zsh)
 
+# kubeswitch
+# https://github.com/danielfoehrKn/kubeswitch/blob/master/docs/installation.md#zsh
+source <(switcher init zsh)
+source <(switch completion zsh)
+
 #----------------- fzf -----------------------#
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 
 # AWSCLI
 complete -C '/usr/local/bin/aws_completer' aws
-
-source /Users/jon.duarte/.config/broot/launcher/bash/br
 
 complete -o nospace -C /Users/jon.duarte/.asdf/installs/terramate/0.5.3/bin/terramate terramate

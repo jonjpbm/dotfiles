@@ -20,12 +20,7 @@ getsshpod() {
         exit 1
     fi
 
-    sshTest=$(kubectl get pods -l name=ssh-test 2>&1)
-    if [ "$sshTest" != "No resources found in default namespace." ]; then
-        echo $(kubectl get pods -l name=ssh-test -o custom-columns=":metadata.name",":spec.nodeName" | grep -w "${HOST}" | awk '{ print $1 }')
-    else
-        echo $(kubectl get pods -l name=ssh -o custom-columns=":metadata.name",":spec.nodeName" | grep -w "${HOST}" | awk '{ print $1 }')
-    fi
+    echo $(kubectl get pods -l name=ssh -o custom-columns=":metadata.name",":spec.nodeName" | grep -w "${HOST}" | awk '{ print $1 }')
 }
 
 kenter() {
@@ -110,3 +105,13 @@ function create_work_dir ()
 
 # https://github.com/ahmetb/kubectl-aliases
 function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
+
+# https://yazi-rs.github.io/docs/quick-start#shell-wrapper
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
