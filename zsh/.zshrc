@@ -1,19 +1,24 @@
 # Custom Variables
 EDITOR=nvim
 
-# vi mode
-bindkey -v
-bindkey '^R' history-incremental-search-backward
+# For user bineries
+export PATH=$PATH:${HOME}/bin
 
 # for go bineries
 export PATH=$PATH:$(go env GOPATH)/bin
 #Krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+#kubectl
+export KUBE_EDITOR="nvim"
+
 #https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#---- asdf ----#
+export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
 
 # fzf
 #https://github.com/junegunn/fzf?tab=readme-ov-file#installation
@@ -22,10 +27,6 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse' 
 
 export _ZO_FZF_OPTS="--no-sort --keep-right --height=50% --info=inline --layout=reverse --exit-0 --select-1"
-
-#---- asdf ----#
-export ASDF_HASHICORP_OVERWRITE_ARCH_TERRAFORM=amd64
-
 
 # Options to fzf command
 # export FZF_COMPLETION_OPTS='--border --info=inline'
@@ -75,12 +76,6 @@ done
 #ghcli completions
 fpath=(${ZDOTDIR:-$HOME}/completions $fpath)
 
-# https://asdf-vm.com/guide/getting-started.html
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-
-. "$HOME/.asdf/asdf.sh"
-
 # history setup
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000000000
@@ -119,24 +114,9 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-    if [[ ${KEYMAP} == vicmd ]] ||
-    [[ $1 = 'block' ]]; then
-        echo -ne '\e[1 q'
-    elif [[ ${KEYMAP} == main ]] ||
-    [[ ${KEYMAP} == viins ]] ||
-    [[ ${KEYMAP} = '' ]] ||
-    [[ $1 = 'beam' ]]; then
-        echo -ne '\e[5 q'
-    fi
-}
-zle -N zle-keymap-select
-
-# https://github.com/ajeetdsouza/zoxide#environment-variables
-_ZO_ECHO=1
-
 #----------------- evals ---------------------#
+eval "$(${HOME}/.local/bin/mise activate zsh)"
+
 eval "$(gh copilot alias -- zsh)"
 
 # https://github.com/ajeetdsouza/zoxide
@@ -148,21 +128,18 @@ eval "$(starship init zsh)"
 # https://developer.1password.com/docs/cli/reference/commands/completion/#load-shell-completion-information-for-zsh
 eval "$(op completion zsh)"; compdef _op op
 
-# https://direnv.net/docs/hook.html
-eval "$(direnv hook zsh)"
-
 # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#https://github.com/jeffreytse/zsh-vi-mode
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Load ; should be last.
 #https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion
 # NOTE: This needed to go after the autoload compinit for some reason
 source <(kubectl completion zsh)
 
-# kubeswitch
-# https://github.com/danielfoehrKn/kubeswitch/blob/master/docs/installation.md#zsh
-source <(switcher init zsh)
-source <(switch completion zsh)
 
 #----------------- fzf -----------------------#
 # Set up fzf key bindings and fuzzy completion
@@ -171,4 +148,10 @@ eval "$(fzf --zsh)"
 # AWSCLI
 complete -C '/usr/local/bin/aws_completer' aws
 
-complete -o nospace -C /Users/jon.duarte/.asdf/installs/terramate/0.5.3/bin/terramate terramate
+# complete -o nospace -C /Users/jon.duarte/.asdf/installs/terramate/0.5.3/bin/terramate terramate
+complete -o nospace -C /Users/jon.duarte/.local/share/mise/installs/terramate/0.8.4/bin/terramate terramate
+
+# Added by Windsurf
+export PATH="/Users/jon.duarte/.codeium/windsurf/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

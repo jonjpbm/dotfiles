@@ -107,11 +107,11 @@ function create_work_dir ()
 function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
 
 # https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-function yy() {
+function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
+		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
 }
