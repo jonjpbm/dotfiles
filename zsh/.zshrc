@@ -74,6 +74,8 @@ for file in ~/.*.zsh; do
 done
 
 #ghcli completions
+# This is when you want to create and specify a directory that you want to use to keep tab completions
+# This command below adds it to 
 fpath=(${ZDOTDIR:-$HOME}/completions $fpath)
 
 # history setup
@@ -117,11 +119,6 @@ bindkey -v '^?' backward-delete-char
 #----------------- evals ---------------------#
 eval "$(${HOME}/.local/bin/mise activate zsh)"
 
-eval "$(gh copilot alias -- zsh)"
-
-# https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init --cmd cd zsh)"
-
 #starship
 eval "$(starship init zsh)"
 
@@ -139,7 +136,6 @@ source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 #https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion
 # NOTE: This needed to go after the autoload compinit for some reason
 source <(kubectl completion zsh)
-
 
 #----------------- fzf -----------------------#
 # Set up fzf key bindings and fuzzy completion
