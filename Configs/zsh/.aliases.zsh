@@ -1,6 +1,3 @@
-alias kubectl=kubecolor
-alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
-# alias vi='nvim'
 alias alp="aws configure list-profiles"
 alias awsl='aws sso login'
 alias batp='bat --paging=always'
@@ -12,16 +9,19 @@ alias d='docker'
 alias eap="ExportAWSProfile"
 alias futc="from_utc"
 alias g='git'
-alias grep="ggrep"
+#alias grep="ggrep"
 alias ib='ibmcloud'
 alias kns="kubens"
+alias kubectl=kubecolor
+alias k='kubectl'
 alias la="ls -a"
 alias lh="ls -d .?*"
 alias ll="ls -la"
-alias ls="lsd"
+alias ls="eza"
 alias mkdir="mkdir -v"
 alias mv="mv -v"
 alias np="vi ~/np"
+alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
 alias rep="cd $HOME/repo"
 alias sdml='sdm login --email jon.duarte@mezmo.com'
 alias simd='date +%Y%m%d%H%M'
