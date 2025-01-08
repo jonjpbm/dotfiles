@@ -8,12 +8,8 @@ alias d2b="decimal2binary"
 alias d='docker'
 alias eap="ExportAWSProfile"
 alias futc="from_utc"
-alias g='git'
 #alias grep="ggrep"
 alias ib='ibmcloud'
-alias kns="kubens"
-alias kubectl=kubecolor
-alias k='kubectl'
 alias la="ls -a"
 alias lh="ls -d .?*"
 alias ll="ls -la"
@@ -31,3 +27,41 @@ alias tre="tre -p"
 alias uap="UnsetAWSProfile"
 alias utc="to_utc"
 alias zel='zellij'
+
+# Kubectl
+alias kubectl=kubecolor
+alias k='kubectl'
+alias kns="kubens"
+alias ktx="kubie ctx"
+alias kg="kubectl get"
+alias kd="kubectl describe"
+alias kgp="kubectl get pods"
+alias kdp="kubectl describe pod"
+alias kgdep="kubectl get deployment"
+alias kdep="kubectl describe deployment"
+alias kgsts="kubectl get statefulset"
+alias kdsts="kubectl describe statefulset"
+alias kgsvc="kubectl get service"
+alias kdsvc="kubectl describe service"
+alias kgcm="kubectl get configmap"
+alias kdcm="kubectl describe configmap"
+alias kgsec="kubectl get secret"
+alias kdsec="kubectl describe secret"
+alias kgpvc="kubectl get pvc"
+alias kdpvc="kubectl describe pvc"
+alias kgpvc="kubectl get pv"
+alias kdpvc="kubectl describe pv"
+alias kgns="kubectl get namespace"
+alias kdns="kubectl describe namespace"
+alias kgno="kubectl get node"
+alias kdno="kubectl describe node"
+
+
+# Git
+alias g="git"
+alias gd="git diff"
+alias gst="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gpush="git push"
+alias gl="git log"

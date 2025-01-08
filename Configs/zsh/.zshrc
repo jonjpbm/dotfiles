@@ -93,3 +93,6 @@ eval "$(starship init zsh)"
 # work with kubecolor
 # https://github.com/hidetatz/kubecolor/issues/32
 compdef kubecolor=kubectl
+
+# Added by Windsurf
+export PATH="/Users/jon.duarte/.codeium/windsurf/bin:$PATH"
