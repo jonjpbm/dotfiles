@@ -1,5 +1,5 @@
 alias alp="aws configure list-profiles"
-alias awsl='aws sso login'
+alias awsl='aws sso login --profile login'
 alias batp='bat --paging=always'
 alias cap="echo $AWS_PROFILE"
 alias cls="clear"
@@ -8,6 +8,7 @@ alias d2b="decimal2binary"
 alias d='docker'
 alias eap="ExportAWSProfile"
 alias futc="from_utc"
+alias gh="env -u GITHUB_TOKEN gh $1"
 #alias grep="ggrep"
 alias ib='ibmcloud'
 alias la="ls -a"
@@ -17,7 +18,8 @@ alias ls="eza"
 alias mkdir="mkdir -v"
 alias mv="mv -v"
 alias np="vi ~/np"
-alias nvim='NVIM_APPNAME="nvim-kickstart" nvim'
+# https://github.com/nvim-lua/kickstart.nvim#faq
+alias vi='NVIM_APPNAME="nvim-kickstart" nvim'
 alias rep="cd $HOME/repo"
 alias sdml='sdm login --email jon.duarte@mezmo.com'
 alias simd='date +%Y%m%d%H%M'
@@ -29,7 +31,7 @@ alias utc="to_utc"
 alias zel='zellij'
 
 # Kubectl
-alias kubectl=kubecolor
+#alias kubectl=kubecolor
 alias k='kubectl'
 alias kns="kubens"
 alias ktx="kubie ctx"
@@ -59,9 +61,15 @@ alias kdno="kubectl describe node"
 
 # Git
 alias g="git"
-alias gd="git diff"
-alias gst="git status"
 alias ga="git add"
-alias gc="git commit"
-alias gpush="git push"
+alias gb="git branch"
+alias gc="git commit -v"
+alias gcb="git checkout -b"
+alias gco="git checkout"
+alias gd="git diff"
+alias gf="git fetch"
 alias gl="git log"
+alias gpull="git pull"
+alias gpush="git push"
+alias gst="git status"
+alias gsw="git switch"

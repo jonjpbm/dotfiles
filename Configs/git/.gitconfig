@@ -4,7 +4,7 @@
         name = Jon Duarte
         email = jon.duarte@mezmo.com
 [core]
-        editor = nvim
+        editor = NVIM_APPNAME="nvim-kickstart" nvim
         pager = delta --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
 
 # https://github.com/dandavison/delta/issues/630
@@ -25,7 +25,7 @@
 [delta]
         features = decorations
         width = -2
-        side-by-side = true
+        #side-by-side = true
 
 [filter "lfs"]
         clean = git-lfs clean -- %f
@@ -34,3 +34,5 @@
         required = true
 [diff "ansible-vault"]
         textconv = ansible-vault view
+[push]
+	autoSetupRemote = true
