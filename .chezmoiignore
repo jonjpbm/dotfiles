@@ -1,0 +1,3 @@
+# Targets chezmoi must never manage or create (patterns are target paths, relative to $HOME)
+LICENSE
+.zsh/secrets.zsh

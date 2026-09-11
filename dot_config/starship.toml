@@ -1,0 +1,369 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[aws]
+symbol = " "
+
+[azure]
+disabled = false
+format = 'on [$symbol($subscription)]($style) '
+symbol = '󰠅 '
+style = 'blue bold'
+
+[battery]
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol = "󰂑 "
+empty_symbol = "󰂎 "
+
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[cobol]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[container]
+symbol = " "
+format = '[$symbol \[$name\]]($style) '
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = " "
+
+[direnv]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[dotnet]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[erlang]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fortran]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = "󱇶 "
+
+[gleam]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[gradle]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[helm]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[kubernetes]
+symbol = "󱃾 "
+
+[lua]
+symbol = " "
+
+[maven]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[mojo]
+symbol = "󰈸 "
+
+[nats]
+symbol = " "
+
+[netns]
+symbol = "󰛳 "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[odin]
+symbol = "󰟢 "
+
+[opa]
+symbol = " "
+
+[openstack]
+symbol = " "
+
+[os.symbols]
+AIX = " "
+AlmaLinux = " "
+Alpaquita = " "
+Alpine = " "
+ALTLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+Bluefin = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = " "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = " "
+InstantOS = " "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = " "
+OpenCloudOS = " "
+openEuler = " "
+openSUSE = " "
+OracleLinux = "󰺡 "
+PikaOS = " "
+Pop = " "
+Raspbian = " "
+Redhat = "󱄛 "
+RedHatEnterprise = "󱄛 "
+Redox = "󰀘 "
+RockyLinux = " "
+Solus = " "
+SUSE = " "
+Ubuntu = " "
+Ultramarine = " "
+Unknown = " "
+Uos = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[pixi]
+symbol = "󰏗 "
+
+[pulumi]
+symbol = " "
+
+[purescript]
+symbol = " "
+
+[python]
+symbol = " "
+
+[raku]
+symbol = "󱖊 "
+
+[red]
+symbol = "󱍼 "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[shlvl]
+symbol = "󰹍 "
+
+[singularity]
+symbol = " "
+
+[solidity]
+symbol = " "
+
+[spack]
+symbol = " "
+
+[status]
+symbol = " "
+
+[sudo]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[terraform]
+symbol = " "
+
+[vlang]
+symbol = " "
+
+[typst]
+symbol = " "
+
+[vagrant]
+symbol = " "
+
+[xmake]
+symbol = " "
+
+[zig]
+symbol = " "
+
+# ─── Claude Code statusline ──────────────────────────────────────────────
+# Rendered via `starship statusline claude-code`, invoked in turn by
+# ~/.claude/statusline-wrapper.sh. The wrapper tees CC's stdin JSON to
+# starship for this render, and separately appends the Claude.ai 5-hour
+# rate-limit % (a field starship's built-in modules don't expose). $claude_cost
+# was removed per request — cost is no longer shown.
+# $directory / $git_branch reuse your existing prompt styling.
+[profiles]
+claude-code = "$claude_model${env_var.CLAUDE_EFFORT}$directory$git_branch$claude_context"
+
+# Starship has no effort module. Claude Code exports CLAUDE_EFFORT into the
+# statusline process, so read it straight from the environment — no subprocess.
+#
+# No `when` guard is needed: env_var renders nothing when the variable is unset
+# and no `default` is configured. That matters because the default prompt format
+# `$all` also expands `$env_var`, same as it expands `$custom` — an unguarded
+# [custom.*] module leaks into the interactive shell prompt.
+#
+# CLAUDE_EFFORT is undocumented (observed in the statusline env, not published).
+# If it ever goes away this silently disappears; the fallback is a custom module
+# running `jq -r '.effortLevel' ~/.claude/settings.json`, gated on
+# `when = 'test -n "$CLAUDE_CODE_SESSION_ID"'`.
+[env_var.CLAUDE_EFFORT]
+format = "[$symbol$env_value]($style) "
+symbol = "󰓅 "
+style = "bold cyan"
+
+[claude_model]
+format = "[$symbol$model]($style) "
+symbol = "󰚩 "
+style = "bold purple"
+
+[claude_model.model_aliases]
+"claude-opus-4-8" = "Opus4.8"
+"claude-sonnet-5" = "Sonnet5"
+"claude-haiku-4-5" = "Haiku4.5"
+
+[claude_context]
+format = "[$symbol$input_tokens/$total_tokens]($style) "
+symbol = "󰧑 "
+
+# Defaults hide the module below 30%. Show it always; escalate color with usage.
+[[claude_context.display]]
+threshold = 0.0
+style = "bold green"
+hidden = false
+
+[[claude_context.display]]
+threshold = 60.0
+style = "bold yellow"
+hidden = false
+
+[[claude_context.display]]
+threshold = 80.0
+style = "bold red"
+hidden = false

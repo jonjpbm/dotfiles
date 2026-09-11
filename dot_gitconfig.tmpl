@@ -1,0 +1,55 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+        name = Jon Duarte
+        email = jonjpbm@gmail.com
+[core]
+        editor = nvim
+        pager = delta --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+
+# https://github.com/dandavison/delta/issues/630
+[pager]
+        diff = delta
+        show = delta
+        stash = delta
+        log = delta
+        reflog = delta
+; [pager]
+;       diff = LESS='LR --mouse' delta
+;       show = LESS='LR --mouse' delta
+;       stash = LESS='LR --mouse' delta
+;       log = LESS='LRc --mouse' delta
+;       reflog = LESS='LR --mouse' delta
+
+# https://dandavison.github.io/delta/configuration.html
+[delta]
+        features = decorations
+        width = -2
+        #side-by-side = true
+
+[filter "lfs"]
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+
+[push]
+	autoSetupRemote = true
+
+# GorillaCommerce: auto-apply jduarte@buildstr.com identity for hpi-gorillacommerce repos
+[includeIf "hasconfig:remote.*.url:git@github.com-gorilla:hpi-gorillacommerce/**"]
+        path = ~/.gitconfig-gorilla
+
+# GorillaCommerce: rewrite plain SSH URLs to use the github.com-gorilla host alias
+# (so `git clone git@github.com:hpi-gorillacommerce/foo.git` transparently uses the work key)
+[url "git@github.com-gorilla:hpi-gorillacommerce/"]
+        insteadOf = git@github.com:hpi-gorillacommerce/
+{{ if eq .chezmoi.os "darwin" -}}
+# gh credential helper (Homebrew path is macOS-specific; Linux machines configure their own auth)
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+{{- end }}
