@@ -1,3 +1,7 @@
-# Targets chezmoi must never manage or create (patterns are target paths, relative to $HOME)
+# Repo meta files — stay in the repo, never deploy to $HOME
 LICENSE
+CLAUDE.md
+README.md
+
+# Local secrets — never managed, never committed
 .zsh/secrets.zsh
