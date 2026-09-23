@@ -1,0 +1,166 @@
+
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+
+
+
+#--------- Environment Variables ---------#
+
+# For user bineries
+export PATH=$PATH:${HOME}/bin
+
+# for go bineries
+export PATH=$PATH:$(go env GOPATH)/bin
+#
+#for rust bineries
+#export PATH=$PATH:${HOME}/.cargo/bin
+
+#Krew
+#export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+#kubectl
+#export KUBE_EDITOR="nvim"
+
+export EDITOR="nvim"
+
+# Get list of gnubin directories
+# brew install coreutils ed findutils gawk gnu-sed gnu-tar grep make binutils diffutils gnu-which watch wdiff wget make
+#export GNUBINS="$(find /opt/homebrew/opt -type d -follow -name gnubin -print)";
+
+#for bindir in ${GNUBINS[@]}; do
+#  export PATH=$bindir:$PATH;
+#done;
+
+#https://github.com/luksa/kubectl-plugins
+#export PATH=$PATH:$HOME/kubectl-plugins
+
+#--------- Custom Variables ---------#
+
+
+#--------- Shell options ---------#
+# To source in aliases and functions
+# Load all .zsh files from a directory (e.g., ~/.zsh/)
+zsh_dir="$HOME/.zsh/"
+if [ -d "$zsh_dir" ]; then
+  for f in "$zsh_dir"/*.zsh(N); do
+    # The (N) glob qualifier makes the pattern expand to nothing if no matches,
+    # avoiding errors when the directory is empty.
+    [ -f "$f" ] && source "$f"
+  done
+fi
+
+#--------- Completion System ---------#
+# initialise completions with ZSH's compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
+zmodload zsh/complist
+compinit -i
+_comp_options+=(globdots)
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+#ghcli completions
+fpath=(${ZDOTDIR:-$HOME}/completions $fpath)
+
+# AWSCLI
+[[ -x /usr/local/bin/aws_completer ]] && complete -C '/usr/local/bin/aws_completer' aws
+
+# Load ; should be last.
+#https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion
+# NOTE: This needed to go after the autoload compinit for some reason
+#[[ $commands[kubectl] ]] && source <(kubectl completion zsh) # add autocomplete permanently to your zsh shell
+
+# https://developer.1password.com/docs/cli/reference/commands/completion/#load-shell-completion-information-for-zsh
+#eval "$(op completion zsh)"; compdef _op op
+
+#--------- Plugin Managers ---------#
+
+## Theme and Prompt
+## https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
+if command -v brew >/dev/null 2>&1; then
+  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  ##https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
+  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  ##https://github.com/jeffreytse/zsh-vi-mode
+  source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+fi
+
+
+#--------- External Tool Configurations ---------#
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh)"
+
+#https://github.com/ajeetdsouza/zoxide
+#eval "$(zoxide init zsh)"
+
+# Set up fzf key bindings and fuzzy completion
+#eval "$(fzf --zsh)"
+#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+
+[ -x "${HOME}/.local/bin/mise" ] && eval "$(${HOME}/.local/bin/mise activate zsh)"
+
+#starship
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+
+#pipx
+#eval "$(register-python-argcomplete pipx)"
+
+command -v brew >/dev/null 2>&1 && [ -d "$(brew --prefix)/opt/openjdk" ] && export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+
+# Added by Windsurf
+export PATH="${HOME}/.codeium/windsurf/bin:$PATH"
+
+[[ -x "${HOME}/.local/share/mise/installs/terramate/0.15.0/terramate" ]] && complete -o nospace -C "${HOME}/.local/share/mise/installs/terramate/0.15.0/terramate" terramate
+
+# Added by Antigravity
+export PATH="${HOME}/.antigravity/antigravity/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# SDLC Framework (coding-ai-config) — installed 2026-05-06
+export PATH="$HOME/.sdlc/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
+# opencode
+export PATH=${HOME}/.opencode/bin:$PATH
+
+
+# Added by Antigravity CLI installer
+export PATH="${HOME}/.local/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="${HOME}/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# Secrets live in ~/.zsh/secrets.zsh (unmanaged, git-ignored via .chezmoiignore)
+
+
+
+
+# --- Loki (gc-infra AKS observability ns) ---
+export LOKI_ADDR=http://localhost:3100
+# Start port-forward tunnel to in-cluster Loki gateway (foreground; Ctrl-C to stop)
+alias loki-tunnel='kubectl -n observability port-forward svc/loki-gateway 3100:80'
+
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+
+# >>> open-knowledge cli >>>
+# ! Contents within this block are managed by OpenKnowledge. Do not edit.
+# ! Delete this whole block to opt out — OpenKnowledge will not re-add it.
+[ -f "$HOME/.ok/env.sh" ] && . "$HOME/.ok/env.sh"
+# <<< open-knowledge cli <<<
+
